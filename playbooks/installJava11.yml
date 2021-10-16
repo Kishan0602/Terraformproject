@@ -1,0 +1,17 @@
+- hosts: My_Group1
+  user: admin
+  become: true
+
+  tasks:
+    - name: Only run "update_cache=yes" if the last one is more than 3600 seconds ago
+      apt:
+        update_cache: yes
+        cache_valid_time: 3600
+
+    - name: Install JAVA related Ubuntu packages
+      apt:
+        name: "{{ packages }}"
+        state: latest
+      vars:
+        packages:
+          - openjdk-8-jdk
